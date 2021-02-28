@@ -45,6 +45,16 @@
 			var map = L.map('map').addLayer(tiles); //cria mapa e adiciona mapa base
 			map.addLayer(markers); //adiciona camada de marcadores no mapa
 			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
+			var baseMaps = {
+					    "OSM": tiles
+					   
+					};
+
+			var overlayMaps = {
+			    "Pocos": markers
+			};
+			L.control.layers(baseMaps, overlayMaps).addTo(map);
+	
 		});
 
 	</script>
