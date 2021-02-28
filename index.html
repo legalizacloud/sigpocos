@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- TÍTULO DA PÁGINA -->
+	<title>MAPA</title>
+	
+<!-- scripts e folhas de estilo -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css" />
+	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+	<script src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+
+<body>
+<!-- container do mapa -->
+	<div id="map" style="width: 100%; height: 100vh; border: 0px;"></div>
+	<script type="text/javascript">
+<!-- jquery lê o arquivo geojson -->		
+		$.getJSON("https://raw.githubusercontent.com/jorgepsendziuk/geojson/master/gasub.geojson", function(data) {
+
+<!-- camada de mapa de base OpenStreetMap -->
+			var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18});
+
+<!-- configurações do cluster de pontos -->
+			var markers = L.markerClusterGroup({
+				spiderfyOnMaxZoom: false, //desagrupar os pontos no zoom máximo: falso
+				showCoverageOnHover: false, //mostrar cobertura de pontos: falso
+				zoomToBoundsOnClick: true, //zoom para o limite ao clicar: verdadeiro
+				disableClusteringAtZoom: 15 //desabilitar agrupamento ao zoom: 15
+			});
+
+<!-- container do mapa -->
+			var geoJsonLayer = L.geoJson(data, { //adiciona arquivo como camada do Leaflet
+			  onEachFeature: function (feature, layer) { 
+				layer.bindPopup('name: '+feature.properties.f2+'</br>'+
+								'name: '+feature.properties.f2+'</br>'+
+								'name: '+feature.properties.f2+'</br>'
+								); //para cada feição cria um popup com as informações
+			  }
+			});
+			markers.addLayer(geoJsonLayer); //adiciona marcadores na camada
+			var map = L.map('map').addLayer(tiles); //cria mapa e adiciona mapa base
+			map.addLayer(markers); //adiciona camada de marcadores no mapa
+			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
+		});
+
+	</script>
+</body>
+</html>
