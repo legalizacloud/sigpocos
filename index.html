@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- TÍTULO DA PÁGINA -->
 	<title>MAPA</title>
 	
-<!-- scripts e folhas de estilo -->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BIBLIOTECAS CARREGADAS E FOLHAS DE ESTILO -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css" />
 	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css" />
@@ -15,16 +15,16 @@
 </head>
 
 <body>
-<!-- container do mapa -->
+<!-- CONTAINER DO MAPA LEAFLET -->
 	<div id="map" style="width: 100%; height: 100vh; border: 0px;"></div>
 	<script type="text/javascript">
-<!-- jquery lê o arquivo geojson -->		
+<!-- INSIRA ABAIXO O CAMINHO PARA SUA FONTE DE DADOS -->		
 		$.getJSON("https://raw.githubusercontent.com/jorgepsendziuk/geojson/master/gasub.geojson", function(data) {
 
-<!-- camada de mapa de base OpenStreetMap -->
-			var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18});
+<!-- CRIA CAMADAS DE MAPA BASE -->
+			var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18});
 
-<!-- configurações do cluster de pontos -->
+<!-- CONFIGURAÇÕES DO AGRUPAMENTO DE PONTOS -->
 			var markers = L.markerClusterGroup({
 				spiderfyOnMaxZoom: false, //desagrupar os pontos no zoom máximo: falso
 				showCoverageOnHover: false, //mostrar cobertura de pontos: falso
@@ -32,12 +32,12 @@
 				disableClusteringAtZoom: 15 //desabilitar agrupamento ao zoom: 15
 			});
 
-<!-- container do mapa -->
+<!-- CRIAÇÃO DA CAMADA GEOJSON A PARTIR DOS DADOS CARREGADOS -->
 			var geoJsonLayer = L.geoJson(data, { //adiciona arquivo como camada do Leaflet
 			  onEachFeature: function (feature, layer) { 
 				layer.bindPopup('name: '+feature.properties.f2+'</br>'+
-								'name: '+feature.properties.f2+'</br>'+
-								'name: '+feature.properties.f2+'</br>'
+						'name: '+feature.properties.f2+'</br>'+
+						'name: '+feature.properties.f2+'</br>'
 								); //para cada feição cria um popup com as informações
 			  }
 			});
@@ -45,15 +45,16 @@
 			var map = L.map('map').addLayer(tiles); //cria mapa e adiciona mapa base
 			map.addLayer(markers); //adiciona camada de marcadores no mapa
 			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
-			var baseMaps = {
-					    "OSM": tiles
+			
+			var mapasbase = {	//INSERE OS MAPAS BASE CRIADOS NA LISTA DE MAPAS BASE
+					    "OSM": tiles	//INSIRA OS NOMES DOS MAPAS E AS VARIAVEIS CRIADAS ACIMA
 					   
 					};
 
-			var overlayMaps = {
-			    "Pocos": markers
+			var camadas = {	//INSERE AS CAMADAS CRIADAS ACIMA
+			    "PoÇos": markers	//INSIRA OS NOMES DAS CAMADAS E AS VARIAVEIS CRIADAS ACIMA
 			};
-			L.control.layers(baseMaps, overlayMaps).addTo(map);
+			L.control.layers(mapasbase, camadas).addTo(map); 	//ADICIONA O CONTROLE DE CAMADAS NO MAPA
 	
 		});
 
