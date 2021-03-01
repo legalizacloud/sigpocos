@@ -47,12 +47,12 @@
 			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
 			
 			var mapasbase = {	//INSERE OS MAPAS BASE CRIADOS NA LISTA DE MAPAS BASE
-					    "OSM": tiles	//INSIRA OS NOMES DOS MAPAS E AS VARIAVEIS CRIADAS ACIMA
+					    "OSM": osm	//INSIRA OS NOMES DOS MAPAS E AS VARIAVEIS CRIADAS ACIMA
 					   
 					};
 
 			var camadas = {	//INSERE AS CAMADAS CRIADAS ACIMA
-			    "PoÇos": markers	//INSIRA OS NOMES DAS CAMADAS E AS VARIAVEIS CRIADAS ACIMA
+			    "Poços": markers	//INSIRA OS NOMES DAS CAMADAS E AS VARIAVEIS CRIADAS ACIMA
 			};
 			L.control.layers(mapasbase, camadas).addTo(map); 	//ADICIONA O CONTROLE DE CAMADAS NO MAPA
 	
