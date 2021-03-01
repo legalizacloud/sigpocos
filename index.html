@@ -42,7 +42,7 @@
 			  }
 			});
 			markers.addLayer(geoJsonLayer); //adiciona marcadores na camada
-			var map = L.map('map').addLayer(tiles); //cria mapa e adiciona mapa base
+			var map = L.map('map').addLayer(osm); //cria mapa e adiciona mapa base padrão
 			map.addLayer(markers); //adiciona camada de marcadores no mapa
 			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
 			
