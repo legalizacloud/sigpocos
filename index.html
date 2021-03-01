@@ -22,7 +22,8 @@
 		$.getJSON("https://raw.githubusercontent.com/jorgepsendziuk/geojson/master/gasub.geojson", function(data) {
 
 <!-- CRIA CAMADAS DE MAPA BASE -->
-			var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18});
+		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 25});
+		var esrisat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom: 25, maxNativeZoom: 17});
 
 <!-- CONFIGURAÇÕES DO AGRUPAMENTO DE PONTOS -->
 			var markers = L.markerClusterGroup({
@@ -47,8 +48,8 @@
 			map.fitBounds(markers.getBounds()); //centraliza visão do mapa na extensão dos marcadores
 			
 			var mapasbase = {	//INSERE OS MAPAS BASE CRIADOS NA LISTA DE MAPAS BASE
-					    "Ruas (OpenStreetMap)": osm	//INSIRA OS NOMES DOS MAPAS E AS VARIAVEIS CRIADAS ACIMA
-					   
+					   "Ruas (OpenStreetMap)": osm,	//INSIRA OS NOMES DOS MAPAS E AS VARIAVEIS CRIADAS ACIMA
+					   "Satélite (ESRI)": esrisat
 					};
 
 			var camadas = {	//INSERE AS CAMADAS CRIADAS ACIMA
