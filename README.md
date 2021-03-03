@@ -7,3 +7,6 @@ O repositório segue os padrões do GitHub Pages, portanto sinta-se livre para c
 Esse código implementa a biblioteca JavaScript Leaflet e o plugin leaflet-markercluster, todos relacionados de seus próprios repositórios, sem a necessidade de cópia e garantindo a integridade do código original.
 
 Os registros são inseridos via JQUERY e podem ser carregados de um arquivo local ou URL de repositório no GitHub, por exemplo.
+
+
+28 Fevereiro 2021
